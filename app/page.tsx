@@ -4,8 +4,13 @@ import Image from "next/image";
 import calculator from "./../assets/images/calculator.png";
 import Footer from "@/components/footer";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+
+  //สร้างตัวแปรก Router
+  const router = useRouter();
+
 
   //สร้างตัวแปร
   const [ucode, setUcode] = useState ("");
@@ -17,7 +22,8 @@ export default function HomePage() {
     }
 
     if(ucode.toLowerCase() == "sau"){
-      window.location.href = "/menu";   // ใช้ได้เหมือนเดิม
+      // window.location.href = "/menu";   // ใช้ได้เหมือนเดิม
+      router.push("/menu");
     }else{
       alert('โค้ดไม่ถูกต้อง')
     }
@@ -26,7 +32,7 @@ export default function HomePage() {
   return (
     <>
       <div
-        className="w-10/12 border border-gray-500 mx-auto mt-20 mb-10 p-20
+        className="w-1/2 border border-gray-500 mx-auto mt-20 mb-10 p-20
                       flex flex-col items-center rounded-2xl shadow-xl"
       >
         <Image src={calculator} alt="calculator" width={200} />
