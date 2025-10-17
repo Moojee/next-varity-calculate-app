@@ -1,78 +1,103 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import Link from "next/link";
+
 import calculator from "./../../assets/images/calculator.png";
 import money from "./../../assets/images/money.png";
 import shape from "./../../assets/images/shapes.png";
 import BMI from "./../../assets/images/bmi.png";
-import BMR from "./../../assets/images/bmi (1).png";
-import Link from "next/link";
+import BMR from "./../../assets/images/bmr.png";
+import Footer from "@/components/footer";
+
+type MenuCardProps = {
+  href: string;
+  imgSrc: StaticImageData; // เพราะรูป import แบบ static
+  title: string;
+};
+
+function MenuCard({ href, imgSrc, title }: MenuCardProps) {
+  return (
+    <Link
+      href={href}
+      className="
+        group block rounded-2xl border border-gray-200 bg-white
+        p-4 shadow-sm hover:shadow-md transition
+        hover:-translate-y-0.5
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-black/70
+      "
+      aria-label={title}
+    >
+      <div className="flex flex-col items-center gap-3">
+        <div
+          className="
+            aspect-square w-24 rounded-xl bg-gray-50
+            ring-1 ring-gray-200 flex items-center justify-center
+            group-hover:bg-gray-100
+          "
+        >
+          <Image src={imgSrc} alt={title} width={72} height={72} className="opacity-90" />
+        </div>
+
+        <div className="text-center">
+          <p className="text-lg font-semibold text-gray-900 group-hover:text-black">
+            {title}
+          </p>
+          <p className="text-xs text-gray-500">กดเพื่อเข้าใช้งาน</p>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 export default function Page() {
   return (
-    <>
-      <div
-        className="w-1/2 border border-gray-500 mx-auto mt-20 mb-10 p-20
-                      flex flex-col items-center rounded-2xl shadow-xl"
-      >
-        <Image src={calculator} alt="calculator" width={150} />
-        <h1 className="text-xl text-blue-950 font-bold mt-5">
-          Varity Calculator V.1.0
-        </h1>
-        <h1 className="text-3xl text-blue-950 mt-2 mb-5">โปรแกรมคำนวณ</h1>
-
-        <div className="w-full flex justify-center">
-          <Link
-            href="/moneyshare"
-            className="text-xl text-white bg-gray-400 px-5 py-2 rounded-xl text-center mx-2"
-          >
-            <Image
-              src={money}
-              alt="calculator"
-              width={80}
-              className="mx-auto"
-            />
-            แชร์เงินกันเถอะ
-          </Link>
-
-          <Link
-            href="/bmi"
-            className="text-xl text-white bg-gray-400 px-5 py-2 rounded-xl text-center mx-2"
-          >
-            <Image
-              src={BMI}
-              alt="calculator"
-              width={80}
-              className="mx-auto"
-            />
-            BMI
-          </Link>
-
-          <Link
-            href="/bmr"
-            className="text-xl text-white bg-gray-400 px-5 py-2 rounded-xl text-center mx-2"
-          >
-            <Image
-              src={BMR}
-              alt="calculator"
-              width={80}
-              className="mx-auto"
-            />
-            BMR
-          </Link>
-
-          <Link
-            href="/shape"
-            className="text-xl text-white bg-gray-400 px-5 py-2 rounded-xl text-center mx-2"
-          >
-            <Image
-              src={shape}
-              alt="calculator"
-              width={80}
-              className="mx-auto"
-            />
-            รูปทรง
-          </Link>
+    <main
+      className="
+        min-h-[calc(100dvh-0px)] bg-gradient-to-b from-white to-gray-50
+        text-gray-900
+      "
+    >
+      {/* Header */}
+      <header className="max-w-5xl mx-auto px-4 pt-10 pb-4 mt-15">
+        <div className="flex items-center gap-3 justify-center ">
+          <Image
+            src={calculator}
+            alt="Varity Calculator"
+            width={56}
+            height={56}
+            className="opacity-90"
+            priority
+          />
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+              Varity Calculator <span className="font-normal">V.1.0</span>
+            </h1>
+            <p className="text-sm text-gray-600">โปรแกรมคำนวณ</p>
+          </div>
         </div>
-      </div>
-    </>
+      </header>
+
+      {/* Content Card */}
+      <section className="max-w-5xl mx-auto px-4 pb-10">
+        <div className="rounded-2xl border border-gray-200 bg-white/90 shadow-sm">
+          {/* Intro */}
+          <div className="p-5 md:p-6 border-b border-gray-100">
+            
+          </div>
+
+          {/* Grid Menu */}
+          <div className="p-5 md:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+              <MenuCard href="/moneyshare" imgSrc={money} title="แชร์เงินกันเถอะ" />
+              <MenuCard href="/bmi" imgSrc={BMI} title="BMI" />
+              <MenuCard href="/bmr" imgSrc={BMR} title="BMR" />
+              <MenuCard href="/shape" imgSrc={shape} title="รูปทรง" />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <Footer/>
+      </section>
+    </main>
   );
 }
